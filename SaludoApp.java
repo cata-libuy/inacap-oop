@@ -2,7 +2,7 @@ class SaludoApp //Inicio Proceso
 {
 	public static void main(String a[])
 	{	
-		System.out.println("Hola Mundo");
+		System.out.print("Hola Mundo");
 		
 	} // Fin Método Main
 
