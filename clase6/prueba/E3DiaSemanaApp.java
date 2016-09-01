@@ -1,6 +1,6 @@
 // Escribir un programa en Java que dado un número del 1 a 7 escriba el correspondiente nombre del día de la semana.
 import java.io.*;
-public class DiaSemanaApp
+public class E3DiaSemanaApp
 {
 	public static void main(String args[])
 	{
@@ -21,9 +21,9 @@ public class DiaSemanaApp
 				case 7: diaStr = "Domingo"; break;
 			}
 			if (diaStr.length() > 0)
-				System.out.print(diaStr);
+				System.out.println(diaStr);
 			else
-				System.out.print("Ese día de la semana no existe");
+				System.out.println("Ese día de la semana no existe");
 		}
 		catch(Exception ex)
 		{

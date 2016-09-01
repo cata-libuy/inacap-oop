@@ -1,7 +1,7 @@
-// Escribir un programa en Java que visualice en pantalla los números pares entre 1 y 25.
+// 2.	Escribir un programa en Java que visualice en pantalla los números múltiplos de 5 comprendidos entre 1 y un número ingresado por teclado
 import java.io.*;
 
-public class ParesApp
+public class E2MultiplosDeCincoApp
 {
 	public static void main(String[] args)
 	{	
@@ -13,7 +13,7 @@ public class ParesApp
 			num2 = Integer.parseInt(teclado.readLine().trim());
 			int i;
 			for (i=1; i<= num2; i++)
-				if(i%2 == 0)
+				if(i%5 == 0)
 					System.out.println(i);
 		}
 		catch (Exception ex)
