@@ -2,7 +2,6 @@
 // este valor se puede calcular aproximadamente con la siguiente sumatoria:
 // sumatoria de (a sub n = 1 / n!) desde n = 0 hasta n 
 
-
 import java.io.*;
 
 public class E6SumatoriaApp

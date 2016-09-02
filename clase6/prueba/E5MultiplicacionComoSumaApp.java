@@ -1,4 +1,4 @@
-la// 5. Escribir un programa en Java  para calcular la multiplicación de dos números por intermedio de sumas.
+// 5. Escribir un programa en Java  para calcular la multiplicación de dos números por intermedio de sumas.
 // 
 // Ej.:
 // 	2*7 = 14

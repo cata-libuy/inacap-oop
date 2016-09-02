@@ -1,6 +1,5 @@
 // 7. Cree un programa que permita ingresar 10 números enteros, luego muestre el mayor y menor número ingresado.
 
-
 import java.io.*;
 
 public class E7MinMaxApp
