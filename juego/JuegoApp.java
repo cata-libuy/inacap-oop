@@ -6,11 +6,10 @@ public class JuegoApp
   // => POR HACER: definir/ declarar variables a usar
   static String secreto; // El número secreto que se debe adivinar
   static String intento; // El número ingresado por el jugador en cada jugada
-  static String registroJugadas[]; // Matriz para almacenar intentos y resultados de cada jugada
-  static registroJugadas = String[15][4];
+  static String registroJugadas[][] = new String[15][4];
   static int numeroJugada = 0; // Lleva el número de jugadas realizadas
   static boolean continuar = true; // Continuar o no el juego
-  JuegoApp juego = new JuegoApp;
+  JuegoApp juego = new JuegoApp();
 
   // main
   public static void main(String args[]) // --> Cata
@@ -46,7 +45,7 @@ public class JuegoApp
     // POR HACER: Devuelve un string F, T o N.
     // F, si el digito se encuentra en el secreto en la posicion indicada. T si se encuentra en otra posicion. N si no se encuentra.
     System.out.println("evaluaDigito no implementado");
-    return 'N';
+    return "N";
   }
 
   String evaluaIntento(String intento) // --> Cata
@@ -54,14 +53,14 @@ public class JuegoApp
     // POR HACER: Recibe el intento de 4 dígitos, los manda a evaluar por separado, cuenta aciertos y devuelve un string con el resultado consolidado.
     // Ej: 1T2F
     System.out.println("evaluaIntento no implementado");
-    return '1T2F';
+    return "1T2F";
   }
 
   String pideIntento() // --> Andy
   {
     // POR HACER: Pide al usuario que ingrese un nuevo intento y lo devuelve.
     System.out.println("pideIntento no implementado");
-    return '1234';
+    return "1234";
   }
 
   boolean finalizaJuego(boolean resultado) // --> Andy
