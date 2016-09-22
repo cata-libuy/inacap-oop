@@ -8,40 +8,22 @@ import java.io.*;
 
 public class SueldoApp
 {
+	// Declarar variables
+	int sueldoBase, horasExtraTrabajadas, cargasFamiliares, montoTotalDesc, menorSueldo, index, sumaProd;
+	static double sueldoPromedio, sueldoMenor;
+	int numeroTrabajadores = 2; // recordar cambiar a 40!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	int sueldos[] = new int[numeroTrabajadores];
+	static SueldoApp sueldoApp = new SueldoApp();
+	
 	public static void main(String args[])
 	{	
-		// Declarar variables
-		int sueldoBase, horasExtraTrabajadas, cargasFamiliares, montoTotalDesc, menorSueldo, index, sumaProd;
-		double sueldoMedio;
-		int sueldos[];
-		sueldos = new int[40]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!para probar, recordar cambiar a 40!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		
 		try
 		{		
-				SueldoApp programa = new SueldoApp();
-				// Repetir proceso para cada trabajador
-				for (index = 0; index < sueldos.length; index++) {
-					// Pedir Datos
-					sueldoBase = programa.pedirNumero("Ingrese sueldo base: ");
-					horasExtraTrabajadas = programa.pedirNumero("Ingrese horas extra trabajadas: ");
-					cargasFamiliares = programa.pedirNumero("Ingrese cantidad de cargas familiares: ");
-					montoTotalDesc = programa.pedirNumero("Ingrese monto total de descuentos: ");
-		
-					// Calcular sueldo y guardar
-					sueldoBase = programa.calcularSueldo(sueldoBase, horasExtraTrabajadas, cargasFamiliares, montoTotalDesc);
-					sueldos[index] = sueldoBase;
-				}
-				
-				// Calcular promedio
-				sumaProd = 0;
-				for(index = 0; index < sueldos.length; index++) {
-					sumaProd = sumaProd + sueldos[index];
-				}
-				
-				System.out.println("El promedio es " + sumaProd / 40);
-				
-				// Calular Menor
-			
+				sueldoApp.ingresarDatosTrabajadores();
+				sueldoPromedio = sueldoApp.calcularPromedio();
+				sueldoMenor = sueldoApp.calcularMenor();
+				sueldoApp.entregarResultado(sueldoPromedio, sueldoMenor);
 		}
 		catch(Exception ex)
 		{
@@ -51,7 +33,50 @@ public class SueldoApp
 	
 	// Sub procesos
 	
-	// -- Pedir un Numero
+	// Ingresar datos
+	void ingresarDatosTrabajadores()
+	{
+		for(index = 0; index < sueldos.length; index++) {
+			// Pedir Datos
+			System.out.println("Trabajador " + (index + 1));
+			sueldoBase = sueldoApp.pedirNumero("Ingrese sueldo base: ");
+			horasExtraTrabajadas = sueldoApp.pedirNumero("Ingrese horas extra trabajadas: ");
+			cargasFamiliares = sueldoApp.pedirNumero("Ingrese cantidad de cargas familiares: ");
+			montoTotalDesc = sueldoApp.pedirNumero("Ingrese monto total de descuentos: ");
+
+			// Calcular sueldo y guardar
+			int sueldoFinal = sueldoApp.calcularSueldo(sueldoBase, horasExtraTrabajadas, cargasFamiliares, montoTotalDesc);
+			sueldos[index] = sueldoFinal;
+		}
+	}
+	
+	// Calcular Promedio
+	double calcularPromedio() 
+	{
+			int sumaSueldos = 0;
+			for (int i = 0; i < sueldos.length; i++)
+				sumaSueldos = sumaSueldos + sueldos[i];
+			return sumaSueldos/sueldos.length;
+	}
+	
+	// Calcular menor
+	double calcularMenor()
+	{
+		double menor = sueldos[0];
+		for (int i = 0; i < sueldos.length; i++) {
+			if (menor > sueldos[i])
+				menor = sueldos[i];
+		}
+		return menor;
+	}
+
+	//  Entregar resultados
+	void entregarResultado(double sueldoPromedio, double sueldoMenor)
+	{
+		System.out.println("El sueldo promedio es " + sueldoPromedio + " y el menor " + sueldoMenor);
+	}
+	
+	// Pedir un Numero
 	static int pedirNumero(String mensaje)
 	{
 		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
