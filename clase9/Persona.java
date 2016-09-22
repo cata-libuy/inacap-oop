@@ -32,15 +32,22 @@ public class Persona
 		BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 		try{
 			System.out.println("Ingrese Rut:");
-			rut = teclado.readLine();
+			this.rut = teclado.readLine();
 			System.out.println("Ingrese Nombre:");
-			nombre = teclado.readLine();
+			this.nombre = teclado.readLine();
 			System.out.println("Ingrese Apellidos:");
-			apellidos = teclado.readLine();
+			this.apellidos = teclado.readLine();
 			System.out.println("Ingrese sexo F o M");
-			sexo = (char)teclado.read();
+			this.sexo = (char)teclado.read();
 		} catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+	
+	public void desplegarDatos()
+	{
+		System.out.println("Rut: " + this.rut);
+		System.out.println("Nombre: " + this.nombre);
+		System.out.println("Apellidos: " + this.apellidos);
 	}
 }
