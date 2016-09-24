@@ -18,23 +18,23 @@ public class JuegoApp
     // => POR HACER: Lleva flujo
 		try {
 			secreto = juego.generaSecreto();
-			while(numeroJugada < 15) { // mientras queden intentos
+			while(numeroJugada <= 15) { // mientras queden intentos
 				System.out.println("Jugada " + numeroJugada);
 				// Pide ingresar un intento
 				intento = juego.pideIntento();
-					// Si es igual al secreto, finaliza el programa exitosamente
-					if (intento == secreto) {
-						resultadoJuego = true;
-						juego.finalizaJuego(resultadoJuego);
-					} else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
-						String resultadoIntento[] = new String[4];
-						resultadoIntento = juego.evaluaIntento(intento).split("");
-						for(int i = 0; i < resultadoIntento.length; i ++) {
-							registroJugadas[numeroJugada-1][i] = resultadoIntento[i];
-						}
-						System.out.println("Resultado: " + juego.evaluaIntento(intento));
-						System.out.println("---------------");
+				// Si es igual al secreto, finaliza el programa exitosamente
+				if (intento == secreto) {
+					resultadoJuego = true;
+					break;
+				} else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
+					String resultadoIntento[] = new String[4];
+					resultadoIntento = juego.evaluaIntento(intento).split("");
+					for(int i = 0; i < resultadoIntento.length; i ++) {
+						registroJugadas[numeroJugada-1][i] = resultadoIntento[i];
 					}
+					System.out.println("Resultado: " + juego.evaluaIntento(intento));
+					System.out.println("---------------");
+				}
 				numeroJugada++;
 			}
 			// Si no quedan intentos, finaliza el juego
@@ -66,16 +66,37 @@ public class JuegoApp
   {
     // POR HACER: Devuelve un string F, T o N.
     // F, si el digito se encuentra en el secreto en la posicion indicada. T si se encuentra en otra posicion. N si no se encuentra.
-    System.out.println("evaluaDigito no implementado");
-    return "N";
+		// Busco retornar fama como primera opción
+		String digitoReferencia = Character.toString(secreto.charAt(posicion));
+		if(digito.equals(digitoReferencia)) {
+			return "F";
+		}
+		// Si aún no he retornado un resultado, vuelvo a evaluar, pero sin requerir posición
+		for(int i = 0; i < 4; i++) {
+			digitoReferencia = Character.toString(secreto.charAt(i));
+			if(digito.equals(digitoReferencia)) {
+				return "T";
+			}
+		}
+    return "N"; // Nada encontrado
   }
 
   String evaluaIntento(String intento) // --> Cata
   {
     // POR HACER: Recibe el intento de 4 dígitos, los manda a evaluar por separado, cuenta aciertos y devuelve un string con el resultado consolidado.
     // Ej: 1T2F
-    System.out.println("evaluaIntento no implementado");
-    return "1T2F";
+		int T = 0;
+		int F = 0;
+		for(int i = 0; i < 4; i++) {
+			String digito = Character.toString(intento.charAt(i));
+			String resultadoDigito = juego.evaluaDigito(digito, i);
+			if (resultadoDigito.equals("T")) {
+				T++;
+			} else if (resultadoDigito.equals("F")) {
+				F++;
+			}
+		}
+    return T+"T"+F+"F";
   }
 
   String pideIntento() // --> Andy
@@ -83,7 +104,7 @@ public class JuegoApp
     // POR HACER: Pide al usuario que ingrese un nuevo intento. 
 		// Usa el método validaIntento para ver si es válido. Si es así lo devuelve, si no es válido, le pide al usuario ingresar uno nuevo.
     System.out.println("pideIntento no implementado");
-    return "1235";
+    return "5432";
   }
 
   boolean finalizaJuego(boolean resultado) // --> Andy
