@@ -1,4 +1,4 @@
-import java.io.*;
+ import java.io.*;
 
 public class JuegoApp
 {
@@ -7,20 +7,42 @@ public class JuegoApp
   static String secreto; // El número secreto que se debe adivinar
   static String intento; // El número ingresado por el jugador en cada jugada
   static String registroJugadas[][] = new String[15][4];
-  static int numeroJugada = 0; // Lleva el número de jugadas realizadas
+  static int numeroJugada = 1; // Lleva el número de jugadas realizadas
   static boolean continuar = true; // Continuar o no el juego
-  JuegoApp juego = new JuegoApp();
+	static boolean resultadoJuego = false;
+  static JuegoApp juego = new JuegoApp();
 
   // main
   public static void main(String args[]) // --> Cata
   {
     // => POR HACER: Lleva flujo
-    // mientras queden intentos
-      // Pide ingresar un intento
-        // Si es igual al secreto, finaliza el programa exitosamente
-        // Si no, evalúa el intento, lo guarda y pide nuevo intento
-    // Si no quedan intentos, finaliza el juego
-    System.out.println("Juego no implementado");
+		try {
+			secreto = juego.generaSecreto();
+			while(numeroJugada < 15) { // mientras queden intentos
+				System.out.println("Jugada " + numeroJugada);
+				// Pide ingresar un intento
+				intento = juego.pideIntento();
+					// Si es igual al secreto, finaliza el programa exitosamente
+					if (intento == secreto) {
+						resultadoJuego = true;
+						juego.finalizaJuego(resultadoJuego);
+					} else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
+						String resultadoIntento[] = new String[4];
+						resultadoIntento = juego.evaluaIntento(intento).split("");
+						for(int i = 0; i < resultadoIntento.length; i ++) {
+							registroJugadas[numeroJugada-1][i] = resultadoIntento[i];
+						}
+						System.out.println("Resultado: " + juego.evaluaIntento(intento));
+						System.out.println("---------------");
+					}
+				numeroJugada++;
+			}
+			// Si no quedan intentos, finaliza el juego
+			juego.finalizaJuego(resultadoJuego);
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
   }
 
   // métodos
@@ -58,9 +80,10 @@ public class JuegoApp
 
   String pideIntento() // --> Andy
   {
-    // POR HACER: Pide al usuario que ingrese un nuevo intento y lo devuelve.
+    // POR HACER: Pide al usuario que ingrese un nuevo intento. 
+		// Usa el método validaIntento para ver si es válido. Si es así lo devuelve, si no es válido, le pide al usuario ingresar uno nuevo.
     System.out.println("pideIntento no implementado");
-    return "1234";
+    return "1235";
   }
 
   boolean finalizaJuego(boolean resultado) // --> Andy
