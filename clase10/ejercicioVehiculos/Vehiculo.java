@@ -31,12 +31,12 @@ public class Vehiculo
   {
     BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
     try {
-      System.out.println("Ingrese datos del vehículo");
+      System.out.println("INGRESE DATOS DEL VEHICULO");
       System.out.println("Patente: ");
       this.patente = teclado.readLine();
       System.out.println("Marca: ");
       this.marca = teclado.readLine();
-      System.out.println("Modelo :");
+      System.out.println("Modelo: ");
       this.modelo = teclado.readLine();
       System.out.println("Numero Chasis: ");
       this.nChasis = Integer.parseInt(teclado.readLine().trim());
@@ -44,6 +44,7 @@ public class Vehiculo
       this.nChasis = Integer.parseInt(teclado.readLine());
       System.out.println("Valor fiscal: ");
       this.valorFiscal = Integer.parseInt(teclado.readLine().trim());
+      System.out.println(" \n ");
     }
     catch(Exception ex) {
       System.out.println(ex.getMessage());
