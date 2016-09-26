@@ -6,7 +6,8 @@ public class JuegoApp2
  // => POR HACER: definir/ declarar variables a usar
  String secreto; // El número secreto que se debe adivinar
  String intento; // El número ingresado por el jugador en cada jugada
- String registroJugadas[][] = new String[15][4];
+ int cantJugadas = 15;
+ String registroJugadas[][] = new String[cantJugadas][4];
  int numeroJugada = 1; // Lleva el número de jugadas realizadas
  boolean continuar = true; // Continuar o no el juego
  boolean resultadoJuego = false;
@@ -17,7 +18,7 @@ public class JuegoApp2
    JuegoApp juego = new JuegoApp();
    try {
      juego.secreto = juego.generaSecreto();
-     while(juego.numeroJugada <= 15) { // mientras queden intentos
+     while(juego.numeroJugada <= cantJugadas) { // mientras queden intentos
        System.out.println("Jugada " + juego.numeroJugada);
        // Pide ingresar un intento
        juego.intento = juego.pideIntento();
@@ -134,7 +135,7 @@ public class JuegoApp2
        F++;
      }
    }
-   return T+"T"+F+"F";
+   return T+"T "+F+"F";
  }
 
  String pideIntento() // --> Andy
@@ -158,11 +159,16 @@ public class JuegoApp2
    }
  }
 
- boolean finalizaJuego(boolean resultado) // --> Andy
+ void finalizaJuego(boolean resultado) // --> Andy
  {
    // POR HACER: Felicita o no al jugador dependiendo el resultado. Muestra el secreto y pregunta si quiere jugar de nuevo (devolviendo true o false).
-   System.out.println("finalizaJuego no implementado. Secreto: " + secreto);
-   return false;
+   System.out.println("El numero secreto es: " + secreto);
+   if(resultado == true) {
+     System.out.println("Felicitaciones, has ganado");
+   } else {
+     System.out.println("Lo siento, has perdidio");
+   }
+   for(int i = 0; i <  )
  }
 
 }
