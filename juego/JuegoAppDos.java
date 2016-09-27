@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class JuegoApp2
+public class JuegoAppDos
 {
  // variables
  String secreto; // El número secreto que se debe adivinar
@@ -14,7 +14,6 @@ public class JuegoApp2
  // main
  public static void main(String args[]) // --> Cata
  {
-
    JuegoApp juego = new JuegoApp();
    try {
      juego.secreto = juego.generaSecreto();
