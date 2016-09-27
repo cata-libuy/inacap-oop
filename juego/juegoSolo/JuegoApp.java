@@ -10,42 +10,57 @@ public class JuegoApp
  int numeroJugada = 1; // Lleva el número de jugadas realizadas
  boolean continuar = true; // Continuar o no el juego
  boolean resultadoJuego = false;
+ BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
 
  // main
  public static void main(String args[]) // --> Cata
  {
    JuegoApp juego = new JuegoApp();
    try {
-     juego.secreto = juego.generaSecreto();
-     while(juego.numeroJugada <= 15) { // mientras queden intentos
-       System.out.println("Jugada " + juego.numeroJugada);
-       // Pide ingresar un intento
-       juego.intento = juego.pideIntento();
-       // Si es igual al secreto, finaliza el programa exitosamente
-       if (juego.intento.equals(juego.secreto)) {
-         juego.resultadoJuego = true;
-         break;
-       } else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
-         String IntentoArr[] = new String[4];
-         String resultadoIntento = juego.evaluaIntento(juego.intento);
-         IntentoArr = juego.intento.split("");
-         for(int i = 0; i < IntentoArr.length; i ++) {
-           juego.registroJugadas[juego.numeroJugada-1][i] = IntentoArr[i];
-         }
-         System.out.println("Resultado: " + resultadoIntento);
-         System.out.println("---------------");
-       }
-       juego.numeroJugada++;
-     }
-     // Si no quedan intentos, finaliza el juego
-     juego.finalizaJuego(juego.resultadoJuego);
+     juego.reiniciarJuego();
    }
    catch(Exception ex) {
      System.out.println(ex.getMessage());
    }
+   System.out.println("Hasta Pronto");
  }
 
  // métodos
+
+ void reiniciarJuego()
+ {
+   secreto = generaSecreto();
+   numeroJugada = 1;
+   for(int i=0; i < cantJugadas; i++) {
+     registroJugadas[i][0] = "";
+     registroJugadas[i][1] = "";
+     registroJugadas[i][2] = "";
+     registroJugadas[i][3] = "";
+   }
+   while(numeroJugada <= 15) { // mientras queden intentos
+     System.out.println("Jugada " + numeroJugada);
+     // Pide ingresar un intento
+     intento = pideIntento();
+     // Si es igual al secreto, finaliza el programa exitosamente
+     if (intento.equals(secreto)) {
+       resultadoJuego = true;
+       break;
+     } else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
+       String IntentoArr[] = new String[4];
+       String resultadoIntento = evaluaIntento(intento);
+       IntentoArr = intento.split("");
+       for(int i = 0; i < IntentoArr.length; i ++) {
+         registroJugadas[numeroJugada-1][i] = IntentoArr[i];
+       }
+       System.out.println("Resultado: " + resultadoIntento);
+       System.out.println("---------------");
+     }
+     numeroJugada++;
+   }
+   // Si no quedan intentos, finaliza el juego
+   finalizaJuego(resultadoJuego);
+
+ }
 
  String generaSecreto() // --> Javo
  {
@@ -141,7 +156,7 @@ public class JuegoApp
  {
    // Pide al usuario que ingrese un nuevo intento.
    // Usa el método validaIntento para ver si es válido. Si es así lo devuelve, si no es válido, le pide al usuario ingresar uno nuevo.
-   BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+
    boolean intentoValido = false;
    try
    {
@@ -170,6 +185,17 @@ public class JuegoApp
    System.out.println("Tus jugadas:");
    for(int i = 0; i < cantJugadas; i++) {
      System.out.println(registroJugadas[i][0]+registroJugadas[i][1]+registroJugadas[i][2]+registroJugadas[i][3]);
+   }
+   try {
+     String continuarJuego = "";
+     System.out.println("¿Jugar de nuevo? S/N");
+     continuarJuego = teclado.readLine();
+     if(continuarJuego.equals("S")) {
+       reiniciarJuego();
+     }
+   }
+   catch(Exception ex) {
+     System.out.println(ex.getMessage());
    }
  }
 
