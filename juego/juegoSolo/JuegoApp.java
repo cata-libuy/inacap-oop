@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class JuegoAppDos
+public class JuegoApp
 {
  // variables
  String secreto; // El número secreto que se debe adivinar
@@ -26,11 +26,11 @@ public class JuegoAppDos
          juego.resultadoJuego = true;
          break;
        } else { // Si no, evalúa el intento, lo guarda y pide nuevo intento
-         String resultadoIntentoArr[] = new String[4];
+         String IntentoArr[] = new String[4];
          String resultadoIntento = juego.evaluaIntento(juego.intento);
-         resultadoIntentoArr = resultadoIntento.split("");
-         for(int i = 0; i < resultadoIntentoArr.length; i ++) {
-           juego.registroJugadas[juego.numeroJugada-1][i] = resultadoIntentoArr[i];
+         IntentoArr = juego.intento.split("");
+         for(int i = 0; i < IntentoArr.length; i ++) {
+           juego.registroJugadas[juego.numeroJugada-1][i] = IntentoArr[i];
          }
          System.out.println("Resultado: " + resultadoIntento);
          System.out.println("---------------");
@@ -134,12 +134,12 @@ public class JuegoAppDos
        F++;
      }
    }
-   return T+"T "+F+"F";
+   return T+"T"+F+"F";
  }
 
  String pideIntento() // --> Andy
  {
-   // POR HACER: Pide al usuario que ingrese un nuevo intento.
+   // Pide al usuario que ingrese un nuevo intento.
    // Usa el método validaIntento para ver si es válido. Si es así lo devuelve, si no es válido, le pide al usuario ingresar uno nuevo.
    BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
    boolean intentoValido = false;
