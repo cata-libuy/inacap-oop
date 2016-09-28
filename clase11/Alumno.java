@@ -53,7 +53,9 @@ public class Alumno
 			apellidoPaterno=teclado.readLine();
 			System.out.println("Ingrese apellido Materno:");
 			apellidoMaterno=teclado.readLine();
-			System.out.println("Ingrese carrera: ");
+			System.out.println("Ingrese sexo[F o M]:");
+			sexo = (char)teclado.read();
+			System.out.println("Ingrese carrera: \n");
 			carrera=teclado.readLine();
 			System.out.println("Ingrese edad: ");
 			edad=teclado.readLine();
@@ -63,8 +65,6 @@ public class Alumno
 			nota2=Float.parseFloat(teclado.readLine().trim());
 			System.out.println("Ingrese nota 3:");
 			nota3=Float.parseFloat(teclado.readLine().trim());
-			System.out.println("Ingrese sexo[F o M]:");
-			sexo=(char)System.in.read();
 
 			}catch(Exception ex){
 				System.out.println("Error:"+ex.getMessage());

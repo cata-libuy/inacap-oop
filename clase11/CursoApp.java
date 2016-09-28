@@ -36,17 +36,19 @@ import java.io.*;
 
 public class CursoApp
 {
-  Alumno alumnos[] = new Alumno[3];
+  Alumno alumnos[] = new Alumno[2];
   BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
+  boolean continuar = true;
 
   public static void main(String args[])
   {
     CursoApp app = new CursoApp();
-    app.menu();
-    // por mientras
-    app.leerDatosCurso();
-    // app.buscarAlumno();
-    // app.listarAlumnos();
+    for(int i = 0; i < app.alumnos.length; i++) {
+      app.alumnos[i] = new Alumno();
+    }
+    while(app.continuar) {
+      app.menu();
+    }
   }
 
   // Metodos
@@ -55,7 +57,6 @@ public class CursoApp
   {
     System.out.println("llegue a leer datos curso");
     for(int i = 0; i < alumnos.length; i++) {
-      alumnos[i] = new Alumno();
       alumnos[i].leerDatos();
     }
   }
@@ -66,11 +67,16 @@ public class CursoApp
     try
     {
       String rutBuscado = teclado.readLine();
+      boolean encontrado = false;
       for(int i = 0; i < alumnos.length; i++) {
-        if(alumnos[i].obtenerRut() == rutBuscado) {
+        if(alumnos[i].obtenerRut().equals(rutBuscado)) {
+          encontrado = true;
           alumnos[i].desplegarDatos();
           break;
         }
+      }
+      if(!encontrado) {
+        System.out.println("Alumno no encontrado");
       }
     }
     catch(Exception ex)
@@ -88,6 +94,31 @@ public class CursoApp
 
   void menu()
   {
-    System.out.println("No implementado");
+    try{
+		BufferedReader br = new BufferedReader (new InputStreamReader (System.in));
+
+		System.out.println("---- Menu ----");
+		System.out.println("1) Ingresar Datos del curso");
+		System.out.println("2) Buscar datos por alumno");
+		System.out.println("3) Listar alumnos");
+		System.out.println("4) Salir");
+
+		String entrada = br.readLine();
+		int respuesta = Integer.parseInt(entrada);
+
+		switch (respuesta){
+			case 1: leerDatosCurso(); break; //Faltan metodos a los cuales ingresar
+			case 2: buscarAlumno(); break;
+			case 3: listarAlumnos(); break;
+			case 4:
+        continuar = false;
+        System.out.println("Hasta pronto!");
+        break;
+			}
+		}
+
+		catch(Exception ex){
+		System.out.println(ex.getMessage());
+		}
   }
 }
