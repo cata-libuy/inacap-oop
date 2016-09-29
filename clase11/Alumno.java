@@ -6,10 +6,11 @@ public class Alumno
 	public String nombre;
 	public String apellidoPaterno;
 	public String apellidoMaterno;
-	public char sexo;
+	public String sexo;
 	public String carrera;
 	public String edad;
-	public float nota1, nota2, nota3;
+	public float nota1, nota2, nota3, suma, promedio;
+	//Alumno alumnos[] = new Alumno[2];
 
 	public Alumno()
 	{
@@ -18,7 +19,7 @@ public class Alumno
 		this.nombre="";
 		this.apellidoPaterno="";
 		this.apellidoMaterno="";
-		this.sexo=' ';
+		this.sexo="";
 		this.carrera="";
 		this.edad="";
 		this.nota1=0;
@@ -26,7 +27,7 @@ public class Alumno
 		this.nota3=0;
 	}
 	//metodo Constructor con parametros
-	public Alumno(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, char sexo, String carrera, String edad, float nota1, float nota2, float nota3)
+	public Alumno(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, String sexo, String carrera, String edad, float nota1, float nota2, float nota3)
 	{
 		this.rut=rut;
 		this.nombre=nombre;
@@ -40,53 +41,49 @@ public class Alumno
 		this.nota3=nota3;
 	}
 
-	public void leerDatos()
+	public void leerDatos(int numAlumno)
 	{
 		BufferedReader teclado=new BufferedReader(new InputStreamReader(System.in));
-		try
-		{
-			System.out.println("Ingrese rut:");
-			rut=teclado.readLine();
-			System.out.println("Ingrese nombre:");
-			nombre=teclado.readLine();
-			System.out.println("Ingrese apellido Paterno:");
-			apellidoPaterno=teclado.readLine();
-			System.out.println("Ingrese apellido Materno:");
-			apellidoMaterno=teclado.readLine();
-			System.out.println("Ingrese sexo[F o M]:");
-			sexo = (char)teclado.read();
-			System.out.println("Ingrese carrera: \n");
-			carrera=teclado.readLine();
-			System.out.println("Ingrese edad: ");
-			edad=teclado.readLine();
-			System.out.println("Ingrese nota 1:");
-			nota1=Float.parseFloat(teclado.readLine().trim());
-			System.out.println("Ingrese nota 2:");
-			nota2=Float.parseFloat(teclado.readLine().trim());
-			System.out.println("Ingrese nota 3:");
-			nota3=Float.parseFloat(teclado.readLine().trim());
 
-			}catch(Exception ex){
-				System.out.println("Error:"+ex.getMessage());
-			}
+		try {
+			System.out.println("");
+      System.out.println("!------ALUMNO " + (numAlumno + 1) + "------!");
+			System.out.println("");
+			System.out.println("Ingrese RUT:");
+			this.rut=teclado.readLine();
+			System.out.println("Ingrese Nombre:");
+			this.nombre=teclado.readLine();
+			System.out.println("Ingrese Apellido Paterno:");
+			this.apellidoPaterno=teclado.readLine();
+			System.out.println("Ingrese Apellido Materno:");
+			this.apellidoMaterno=teclado.readLine();
+			System.out.println("Ingrese Sexo[F o M]:");
+			this.sexo = teclado.readLine().toUpperCase();
+			System.out.println("Ingrese Carrera: ");
+			this.carrera=teclado.readLine();
+			System.out.println("Ingrese Edad: ");
+			this.edad=teclado.readLine();
+			System.out.println("Ingrese Nota 1:");
+			this.nota1=Float.parseFloat(teclado.readLine().trim());
+			System.out.println("Ingrese Nota 2:");
+			this.nota2=Float.parseFloat(teclado.readLine().trim());
+			System.out.println("Ingrese Nota 3:");
+			this.nota3=Float.parseFloat(teclado.readLine().trim());
+		}
+		catch(Exception ex) {
+			System.out.println("Error: "+ex.getMessage());
+		}
 	}
 
 	public void desplegarDatos()
 	{
 		try
 		{
-			System.out.println("RUT"+rut);
-			System.out.println("Nombre:"+nombre);
-			System.out.println("Apellido Paterno:"+apellidoPaterno);
-			System.out.println("Apellido Materno:"+apellidoMaterno);
-			if(sexo=='f') System.out.println("sexo:Femenino");
-			if(sexo=='m') System.out.println("sexo:Masculino");
-			System.out.println("Carrera"+carrera);
-			System.out.println("Edad"+edad);
-			System.out.println("Nota 1"+nota1);
-			System.out.println("Nota 2"+nota2);
-			System.out.println("Nota 3"+nota3);
-
+			System.out.println("");
+			System.out.println("RUT: "+this.rut);
+			System.out.println("Nombre Completo: "+this.nombre+" "+this.apellidoPaterno+" "+this.apellidoMaterno);
+			System.out.println("Carrera: "+this.carrera);
+			System.out.println("Promedio: "+(this.nota1*0.2 + this.nota2*0.3 + this.nota3*0.5));
 		}catch(Exception ex)
 		{
 			System.out.println("Error:"+ex.getMessage());

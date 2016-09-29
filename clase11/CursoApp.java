@@ -36,7 +36,7 @@ import java.io.*;
 
 public class CursoApp
 {
-  Alumno alumnos[] = new Alumno[2];
+  Alumno alumnos[] = new Alumno[20];
   BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
   boolean continuar = true;
 
@@ -57,7 +57,7 @@ public class CursoApp
   {
     System.out.println("llegue a leer datos curso");
     for(int i = 0; i < alumnos.length; i++) {
-      alumnos[i].leerDatos();
+      alumnos[i].leerDatos(i);
     }
   }
 
