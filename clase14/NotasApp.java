@@ -52,8 +52,8 @@ public class NotasApp {
 
   public void desplegarNotas()
   {
-    for (int i = 0; i < notas.size(); i++) {
-      System.out.println("Nota " + i + ": " + notas.get(i));
+    for (Float nota : notas) {
+      System.out.println(nota);
     }
   }
 
