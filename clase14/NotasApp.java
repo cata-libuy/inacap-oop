@@ -24,6 +24,10 @@ public class NotasApp {
     try {
       System.out.println("Ingrese nota");
       nota = Float.parseFloat(teclado.readLine().trim());
+      while (nota < 0.0f || nota > 7.0f ) {
+        System.out.println("La nota debe ser entre 0 y 7");
+        nota = Float.parseFloat(teclado.readLine().trim());
+      }
       return nota;
     } catch (Exception ex) {
       System.out.println("error: " + ex.getMessage());
