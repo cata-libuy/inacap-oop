@@ -9,10 +9,6 @@ package museoapp;
  *
  * @author cata.orellana
  */
-public class ObraDeArte {
-    private int identificador;
-    public String titulo;
-    public String fechaCreacion;
-    public String fechaLlegada;
+public class TipoObra {
     
 }

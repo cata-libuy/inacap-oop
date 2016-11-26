@@ -1,9 +1,12 @@
+import java.util.*;
+// Oimport museoapp.ObraDeArte;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package museoapp;
+//package museoapp;
+
 
 /**
  *
@@ -15,6 +18,7 @@ public class MuseoApp {
      * @param args the command line arguments
      */
     Scanner sc = new Scanner(System.in);
+    ArrayList<ObraDeArte> listaObras = new ArrayList<ObraDeArte>();    
     boolean continuar = true;
     
     public static void main(String[] args) {
@@ -25,32 +29,20 @@ public class MuseoApp {
             }
             System.out.println("Good bye");
     }
-    
-    public boolean quiereContinuar()
-  {
-    String respuesta;
-    try {
-      System.out.println("¿Cerrar la Aplicación? S/N");
-      respuesta = sc.readLine().trim().toUpperCase();
-      if (respuesta.equals("S"))
-        return true;
-      return false;
-    } catch (Exception ex) {
-      System.out.println("error: " + ex.getMessage());
-      return false;
-    }
-  }
+
 
 
   public void desplegarMenu()
   {
     System.out.println("\n ********** MUSEO APP ************ \n Elija una opcion de menu");
-    System.out.println("\n MUSEO \n (M1) Ver | (M2) Crear | (M3) Editar | (M4) Eliminar | (M5) Registrar ingreso de persona | (M6) Registrar salida de persona");
-    System.out.println( "\n EXPOSICION \n (E1) Ver | (E2) Crear | (E3) Editar | (E4) Eliminar  ");
-    System.out.println( "\n OBRA DE ARTE \n (O1) Ver | (O2) Crear | (O3) Editar | (O4) Eliminar | (O5) Modificar estado");
+    System.out.println("\n MUSEO \n (M1) Ver Todos | (M2) Crear | (M3) Editar | (M4) Eliminar | (M5) Registrar ingreso de persona | (M6) Registrar salida de persona");
+    System.out.println( "\n EXPOSICION \n (E1) Ver  Todas| (E2) Crear | (E3) Editar | (E4) Eliminar  ");
+    System.out.println( "\n OBRA DE ARTE \n (O1) Ver Todas | (O2) Crear | (O3) Editar | (O4) Eliminar | (O5) Modificar estado");
+    System.out.println("\n CARGAR DATOS DE PRUEBA (T)");
+    System.out.println("\n Salir (X)");
     String opcion = "";
     try {
-      opcion = sc.readLine();
+      opcion = sc.nextLine().toUpperCase();
     } catch(Exception ex) {
       System.out.println("Error: " + ex.getMessage());
     }
@@ -71,9 +63,9 @@ public class MuseoApp {
       break;
       
      // Obra de arte
-    case "O1": System.out.println("Menu no implementado");
+    case "O1": verObras();
       break;
-    case "O2": System.out.println("Menu no implementado");
+    case "O2": crearObra();
       break;
     case "O3": System.out.println("Menu no implementado");
       break;
@@ -82,13 +74,41 @@ public class MuseoApp {
     case "O5": System.out.println("Menu no implementado");
       break;
     case "O6": System.out.println("Menu no implementado");
-      break;  
+      break;
+      
+    // Utilidades
+    case "T": cargarDatosDePrueba();
+      break;
+    case "X": continuar = false;
+        break;
+    default:
+        System.out.println("Ingrese opcion valida");
+        desplegarMenu();
     }
-    
-    
-    System.out.println("Menu no implementado");
 
-    continuar = !quiereContinuar();
   }
-    
+  
+  public void crearObra()
+  {
+      ObraDeArte nuevaObra = new ObraDeArte();
+      nuevaObra.leerDatos();
+      listaObras.add(nuevaObra);
+      System.out.println("obra agregada");
+  }
+  
+  public void verObras()
+  {
+      System.out.println("Obras:");
+      for(ObraDeArte obra : listaObras) {
+          obra.desplegarDatos();
+          System.out.println(" ");
+      }
+  }
+  
+  public void cargarDatosDePrueba()
+  {
+      ObraDeArte nuevaObra = new ObraDeArte(1, 1, 1, "Obra de prueba", "0000-00-00", "0000-00-00", "0000-00-00", true);
+      listaObras.add(nuevaObra);
+      System.out.println("datos de prueba agregados");
+  }
 }
