@@ -107,8 +107,10 @@ public class MuseoApp {
   
   public void cargarDatosDePrueba()
   {
-      ObraDeArte nuevaObra = new ObraDeArte(1, 1, 1, "Obra de prueba", "0000-00-00", "0000-00-00", "0000-00-00", true);
-      listaObras.add(nuevaObra);
+      ObraDeArte nuevaObra1 = new ObraDeArte(1, 1, 1, "Obra de prueba", "0000-00-00", "0000-00-00", "0000-00-00", true);
+      ObraDeArte nuevaObra2 = new ObraDeArte(2, 1, 1, "Obra de prueba2", "0000-00-00", "0000-00-00", "0000-00-00", true);
+      listaObras.add(nuevaObra1);
+      listaObras.add(nuevaObra2);
       System.out.println("datos de prueba agregados");
   }
 }
