@@ -8,6 +8,7 @@ package persoanduser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 
 
@@ -19,17 +20,11 @@ import java.io.InputStreamReader;
  */
 public class PersoAndUser {
 /*CLASE PERSONAL*/
+    public ArrayList<Usuario> lista = new ArrayList<Usuario>();
     
-public String cargo;
-private String FechaIngreso;
-public String Especialidad;
-private String FechaEgreso;
-public String Direccion;
-public String Tfno;
-private String User;
-private int Password;
-private int IdPersonal;
-public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    
+    
+    public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     
     
     /**
@@ -38,129 +33,135 @@ public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-       
+       PersoAndUser objeto = new PersoAndUser();
+        objeto.Menu();
         
     }
 
-    public PersoAndUser() {
-        this.cargo = "";
-        this.FechaIngreso = "";
-        this.Especialidad = "";
-        this.FechaEgreso = "";
-        this.Direccion = "";
-        this.Tfno = "";
-        this.User = "";
-        this.Password = 0;
-        this.IdPersonal = 0;
-    }
+   
+
+   
     
-    
+    public void Menu()
+    {
+        int op=0;
+        
+        do {
+            
+                try
+            {
+                System.out.println("----------Selecciones una de las siguientes opciones----------");
+                System.out.println("1.- Crear Personal");
+                System.out.println("2.- Crear Visitante");
+                System.out.println("3.- Mostrar Datos de Personal");
+                System.out.println("4.- Mostrar Datos Visitantes");
+                System.out.println("5.- Modicificar Personal");
+                System.out.println("6.- Eliminar Personal");
+                System.out.println("7.- Salir");
 
-    public PersoAndUser(String cargo, String FechaIngreso, String Especialidad, String FechaEgreso, String Direccion, String Tfno, String User, int Password, int IdPersonal) {
-        this.cargo = cargo;
-        this.FechaIngreso = FechaIngreso;
-        this.Especialidad = Especialidad;
-        this.FechaEgreso = FechaEgreso;
-        this.Direccion = Direccion;
-        this.Tfno = Tfno;
-        this.User = User;
-        this.Password = Password;
-        this.IdPersonal = IdPersonal;
-    }
+                op=Integer.parseInt(br.readLine());
 
-    public String getCargo() {
-        return cargo;
+                switch(op)
+                {
+                    case 1: DatosPersonal();
+                        break;
+                    case 2: DatosVisitantes();
+                        break;
+                    case 3: DesplegarDatosPersonal();
+                        break;
+                    case 4: DesplegarDatosVisitas();
+                        break;
+                    case 5: ModificarPersonal();
+                        break;
+                    case 6: EliminarPersonal();
+                        break;
+                    case 7: System.out.println("Gracias :3 ");
+                        break;
+                }
+            }catch(Exception ex)
+            {
+                System.out.println("Error: "+ex.getMessage());
+            }
+            
+        } while (op!=7);
+        
+        
+        
     }
-
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
-
-    public String getFechaIngreso() {
-        return FechaIngreso;
-    }
-
-    public void setFechaIngreso(String FechaIngreso) {
-        this.FechaIngreso = FechaIngreso;
-    }
-
-    public String getEspecialidad() {
-        return Especialidad;
-    }
-
-    public void setEspecialidad(String Especialidad) {
-        this.Especialidad = Especialidad;
-    }
-
-    public String getFechaEgreso() {
-        return FechaEgreso;
-    }
-
-    public void setFechaEgreso(String FechaEgreso) {
-        this.FechaEgreso = FechaEgreso;
-    }
-
-    public String getDireccion() {
-        return Direccion;
-    }
-
-    public void setDireccion(String Direccion) {
-        this.Direccion = Direccion;
-    }
-
-    public String getTfno() {
-        return Tfno;
-    }
-
-    public void setTfno(String Tfno) {
-        this.Tfno = Tfno;
-    }
-
-    public String getUser() {
-        return User;
-    }
-
-    public void setUser(String User) {
-        this.User = User;
-    }
-
-    public int getPassword() {
-        return Password;
-    }
-
-    public void setPassword(int Password) {
-        this.Password = Password;
-    }
-
-    public int getIdPersonal() {
-        return IdPersonal;
-    }
-
-    public void setIdPersonal(int IdPersonal) {
-        this.IdPersonal = IdPersonal;
-    }
-    
     public void DatosPersonal() throws IOException
     {
-        System.out.println("----------Ingrese los siguientes datos----------"); 
-        System.out.println("Ingrese Su Cargo: ");
-        this.cargo=br.readLine();
-        System.out.println("Ingrese su Fecha de Ingreso: ");
-        this.FechaIngreso=br.readLine();
-        System.out.println("Ingrese su Especialidad:");
-        this.Especialidad=br.readLine();
-        System.out.println("Direccion:");
-        this.Direccion=br.readLine();
-        System.out.println("telefono");
-        this.Tfno=br.readLine();
-        System.out.println("Nombre de Usuario");
-        this.User=br.readLine();
-        System.out.println("Su Clave");
-        this.Password=Integer.parseInt(br.readLine());
-        System.out.println("su numero de personal");
-        this.IdPersonal=Integer.parseInt(br.readLine());  
+        Usuario user = new Usuario();
+        user.DatosPersonal2();
         
+        lista.add(user);
+    }
+    
+    public void DatosVisitantes() throws IOException
+    {
+        Usuario visitas = new Usuario();
+        visitas.DatosVisitantes();
+        
+        lista.add(visitas);
+    }
+    
+    public void DesplegarDatosPersonal()
+    {
         
     }
+    
+    public void DesplegarDatosVisitas()
+    {
+        
+    }
+    
+    public void ModificarPersonal() throws IOException
+    {
+        System.out.println("Ingrese Nombre:");
+         String nombre =br.readLine();
+         boolean encontrado = false; /*--> ESTA FUNCION ES PARA QUE CORROBORE SI EL DATO INGRESADO EXISTE OH NO*/
+         
+         for (int i = 0; i < lista.size(); i++) {
+             
+             if (lista.get(i).nombre.equals(nombre)) {
+                 
+                 
+                 
+                 encontrado=true;
+             }
+        }
+         if (encontrado==false) {
+                 System.out.println("No encontrado"); /*--> POR SI LO QUE SE BUSQUA NO SE ENCUENTRA.*/
+             }
+    }
+    
+    public void EliminarPersonal()
+    {
+        
+    }
+    
 }
 
+/*public void modificarDatos()
+    {
+        
+        PENSADO SI ES QUE UTILIZAMOS UN ARRAYLIST.
+        Este metodo lo pense para poder modificar datos por intermedio del usuario
+        
+        System.out.println("Ingrese Nombre:");
+         String <NOMBRE DE VARIABLE> =br.readLine();
+         boolean encontrado = false; --> ESTA FUNCION ES PARA QUE CORROBORE SI EL DATO INGRESADO EXISTE OH NO
+         
+         for (int i = 0; i < lista.size(); i++) {
+             
+             if (lista.get(i).NOMBRE DE VARIABLE.equals(NOMBRE DE VARIABLE )) {
+                 
+                 System.out.println("Ingrese ");
+                 lista.get(i).precio=br.readLine();
+                 
+                 encontrado=true;
+             }
+        }
+         if (encontrado==false) {
+                 System.out.println("No encontrado"); --> POR SI LO QUE SE BUSQUA NO SE ENCUENTRA.
+             }
+    }*/
