@@ -77,7 +77,7 @@ public class MuseoApp {
       break;
     case "O2": crearObra();
       break;
-    case "O3": System.out.println("Menu no implementado");
+    case "O3": editarObra();
       break;
     case "O4": System.out.println("Menu no implementado");
       break;
@@ -157,6 +157,35 @@ public class MuseoApp {
           System.out.println(" ");
       }
   }
+  
+    public void editarObra() {
+      int id = -1;
+      boolean encontrado = false;
+      try {
+          System.out.println("Ingrese id para editar:");
+          id = sc.nextInt();
+      } 
+      catch(Exception ex) {
+        System.out.println("Error: " + ex.getMessage());
+      }
+      
+      for(ObraDeArte obra : listaObras) {
+          if (obra.getIdObra() == id) {
+            System.out.println("Se encontraron los siguientes datos");
+            obra.desplegarDatos();
+            System.out.println("Ingrese nuevos datos");
+            obra.editarDatos();
+            System.out.println("Datos modificados");
+            encontrado = true;
+          }
+      }
+      if (!encontrado) {
+          System.out.println("No se encontró personal con ese id");
+      }
+  }
+    
+  
+  // Datos de prueba
   
   public void cargarDatosDePrueba()
   {

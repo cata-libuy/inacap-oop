@@ -48,17 +48,35 @@ public class ObraDeArte {
         this.estado = estado;
     }
     
-    public void modificarDatos(
-            String titulo,
-            String fechaCreacion,
-            String fechaLlegada,
-            String fechaColocacion
-            )
+    public void editarDatos()
     {
-        this.titulo = titulo.length() > 0 ? titulo : this.titulo;
-        this.fechaCreacion = fechaCreacion.length() > 0 ? fechaCreacion : this.fechaCreacion;
-        this.fechaLlegada = fechaLlegada.length() > 0 ? fechaLlegada : this.fechaLlegada;
-        this.fechaColocacion = fechaColocacion.length() > 0 ? fechaColocacion : this.fechaColocacion;        
+        System.out.println("Ingresar datos de la obra. Dejar en blanco si no sequieren modificar");
+        try {
+            System.out.println("titulo: ");
+            String titulo = sc.nextLine();
+            this.titulo = titulo.length() > 0 ? titulo : this.titulo;
+            
+            System.out.println("fecha creación: ");
+            String fechaCreacion = sc.nextLine();
+            this.fechaCreacion = fechaCreacion.length() > 0 ? fechaCreacion : this.fechaCreacion;
+            
+            System.out.println("fecha llegada: ");
+            String fechaLlegada = sc.nextLine();
+            this.fechaLlegada = fechaLlegada.length() > 0 ? fechaLlegada : this.fechaLlegada;
+            
+            System.out.println("fecha colocación: ");
+            String fechaColocacion = sc.nextLine();
+            this.fechaColocacion = fechaColocacion.length() > 0 ? fechaColocacion : this.fechaColocacion;        
+            
+            System.out.println("¿activa? (s/n): ");
+            String activa = sc.nextLine();
+            this.estado = activa.toLowerCase() == "s" ? true : false; 
+            
+        } 
+        catch(Exception ex) {
+         System.out.println(ex.getMessage());
+        }        
+        
     }
     
     public void leerDatos()
@@ -103,6 +121,8 @@ public class ObraDeArte {
         System.out.println("activa: " + activa);
     }
     
+    public int getIdObra() {
+        return this.idObra;
+    }
+    
 }
-
-
