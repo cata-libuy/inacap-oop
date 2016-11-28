@@ -119,6 +119,7 @@ public class Persona {
         this.User=br.readLine();
         System.out.println("Su Clave");
         this.Password=Integer.parseInt(br.readLine());
+        System.out.println("su numero de personal");
     }
     
     
@@ -126,11 +127,10 @@ public class Persona {
     {
         System.out.println("Datos Personales");
         System.out.println(
-                "\n Nombre "+this.nombre +
-                "\n Rut "+this.rut+
-                "\n nombre de usuario "+this.User+
-                "\n Dirección "+this.Direccion+
-                "\n Telefono "+this.Tfno
+                "Nombre "+this.nombre +
+                " Rut "+this.rut+
+                " Dirección "+this.Direccion+
+                " Telefono "+this.Tfno
         );
     }
     

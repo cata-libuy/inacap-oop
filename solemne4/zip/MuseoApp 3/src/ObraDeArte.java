@@ -14,7 +14,6 @@ public class ObraDeArte {
     private int idObra, idAutor, idTipo;
     public String titulo, fechaCreacion, fechaLlegada, fechaColocacion;
     public boolean estado;
-    public Exposicion exposicion;
     Scanner sc = new Scanner(System.in);
     
     ObraDeArte()
@@ -26,7 +25,6 @@ public class ObraDeArte {
         this.fechaColocacion = "0000-00-00";
         this.estado = false;
         this.idAutor = 0;
-        this.exposicion = new Exposicion();
     }
 
         ObraDeArte(
@@ -48,7 +46,6 @@ public class ObraDeArte {
         this.fechaLlegada = fechaLlegada;
         this.fechaColocacion = fechaColocacion;
         this.estado = estado;
-        this.exposicion = new Exposicion();
     }
     
     public void editarDatos()
@@ -130,11 +127,6 @@ public class ObraDeArte {
     
     public void darDeBaja() {
         this.estado = false;
-    }
-    
-    public void setExposicion(Exposicion exposicion) 
-    {
-        this.exposicion = exposicion;
     }
     
 }

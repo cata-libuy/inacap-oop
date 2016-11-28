@@ -105,8 +105,10 @@ public class Personal extends Persona
     {
         if (validatePassword(password)) {
             this.loggedIn = true;
+            return true;
         }
-        return validatePassword(password);
+        
+        return false;
     }
     
     public void logOut() {

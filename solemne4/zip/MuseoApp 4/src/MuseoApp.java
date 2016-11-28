@@ -50,8 +50,8 @@ public class MuseoApp {
     // System.out.println("\n MUSEO \n (M1) Ver Todos | (M2) Crear | (M3) Editar | (M4) Eliminar | (M5) Registrar ingreso de persona | (M6) Registrar salida de persona");
     
     System.out.println( "\n GALERÍAS DEL MUSEO \n (G1) Ver Todas | (G2) Crear | (G3) Editar | (G4) Eliminar ");
-    System.out.println( "\n EXPOSICION \n (E1) Ver  Todas| (E2) Crear | (E3) Editar | (E4) Eliminar | (E5) Asignar galería a exposición | (E6) Desvincular de galería ");
-    System.out.println( "\n OBRA DE ARTE \n (O1) Ver Todas | (O2) Crear | (O3) Editar | (O4) Eliminar | (O5) Dar obra de baja | (O6) Asignar obra a exposicion | (O7) Sacar obra de expoiscion");
+    System.out.println( "\n EXPOSICION \n (E1) Ver  Todas| (E2) Crear | (E3) Editar | (E4) Eliminar | (E5) Asignar galería  ");
+    System.out.println( "\n OBRA DE ARTE \n (O1) Ver Todas | (O2) Crear | (O3) Editar | (O4) Eliminar | (O5) Dar obra de baja");
     System.out.println("\n VISITAS \n (V1) Ver Registro de visitas | (V2) Registrar ingreso | (V3) Registrar salida | (V4) Eliminar registro");
     System.out.println("\n (T) CARGAR DATOS DE PRUEBA -------> RECOMENDADO!!!");
     System.out.println("\n (X) Salir ");
@@ -110,8 +110,6 @@ public class MuseoApp {
         break;
     case "E5": agregarExposicionAGaleria();
         break;
-    case "E6": quitarExposicionDeGaleria();
-    break;
     
       
      // Obra de arte
@@ -125,11 +123,6 @@ public class MuseoApp {
       break;
     case "O5": darObraDeBaja();
       break;
-    case "O6": agregarObraAExposicion();
-      break;
-    case "O7": quitarObraDeExposicion();
-      break;
-      
       
     // Visitas    
     case "V1": verVisitas();
@@ -454,60 +447,6 @@ public class MuseoApp {
       }
       String pausa = sc.nextLine();
     }
-    
-    public void quitarExposicionDeGaleria()
-    {
-       int idGaleria = -1;
-       int idExposicion = -1;
-       boolean galeriaEncontrada = false;
-       boolean exposicionEncontrada = false;
-       try {
-          System.out.println("Ingrese el identificador de la Galeria:");
-          idGaleria = sc.nextInt();
-          System.out.println("Ingrese el identificador de la Exposición que va sacar de la galería:");
-          idExposicion = sc.nextInt();         
-      } 
-      catch(Exception ex) {
-        System.out.println("Error: " + ex.getMessage());
-      }
-      
-      Galeria galeriaAUsar = new Galeria();
-      Exposicion exposicionAUsar = new Exposicion();
-      for(int i = 0; i < listaGalerias.size(); i++) {
-          Galeria galeria = listaGalerias.get(i);
-          if (galeria.getIdentificador() == idGaleria) {              
-              galeriaEncontrada = true;
-              galeriaAUsar = galeria;
-              break;
-          }
-      }
-
-      if (galeriaEncontrada) {
-            for(int i = 0; i < galeriaAUsar.listaExposiciones.size(); i++) {
-                Exposicion expo = galeriaAUsar.listaExposiciones.get(i);
-                if (expo.getIdentificador() == idExposicion) {
-                    exposicionEncontrada = true;
-                    galeriaAUsar.listaExposiciones.remove(i);
-                    System.out.println("Exposición desvinculada de galería");
-                    break;
-                }
-            }
-            for (int i = 0; i < listaExposiciones.size(); i++) {
-                Exposicion expo = listaExposiciones.get(i);
-                if (expo.getIdentificador() == idExposicion) {
-                    exposicionEncontrada = true;
-                    Galeria nuevaGal = new Galeria();
-                    expo.setGaleria(nuevaGal);
-                    break;
-                }
-            }
-      } else if (!galeriaEncontrada) {
-          System.out.println("No se encontró galeria con ese identificador");
-      } else if (!exposicionEncontrada) {
-          System.out.println("No se encontró exposición con ese identificador");
-      }
-      String pausa = sc.nextLine();
-    }
   
   // Administración de Obras
    
@@ -607,106 +546,6 @@ public class MuseoApp {
       }
       String pausa = sc.nextLine();
     }
-    
-    public void agregarObraAExposicion()
-    {
-       int idExposicion = -1;
-       int idObra = -1;
-       boolean obraEncontrada = false;
-       boolean exposicionEncontrada = false;
-       try {
-          System.out.println("Ingrese el identificador de la Exposición que quiere usar para la obra:");
-          idExposicion = sc.nextInt();
-          System.out.println("Ingrese el identificador de la Obra que va asignar a la exposición:");
-          idObra = sc.nextInt();         
-      } 
-      catch(Exception ex) {
-        System.out.println("Error: " + ex.getMessage());
-      }
-      
-      ObraDeArte obraAUsar = new ObraDeArte();
-      Exposicion exposicionAUsar = new Exposicion();
-      for(int i = 0; i < listaObras.size(); i++) {
-          ObraDeArte obra = listaObras.get(i);
-          if (obra.getIdObra() == idObra) {              
-              obraEncontrada = true;
-              obraAUsar = obra;
-              break;
-          }
-      }
-      for(int i = 0; i < listaExposiciones.size(); i++) {
-          Exposicion expo = listaExposiciones.get(i);
-          if (expo.getIdentificador() == idExposicion) {
-              exposicionEncontrada = true;
-              exposicionAUsar = expo;
-              break;
-          }
-      }
-      if (obraEncontrada && exposicionEncontrada) {
-          exposicionAUsar.agregarObraDeArte(obraAUsar);
-          obraAUsar.setExposicion(exposicionAUsar);
-          System.out.println("Obra agregada a exposición");
-      } else if (!obraEncontrada) {
-          System.out.println("No se encontró obra con ese identificador");
-      } else if (!exposicionEncontrada) {
-          System.out.println("No se encontró exposición con ese identificador");
-      }
-      String pausa = sc.nextLine();
-    }
-    
-       public void quitarObraDeExposicion()
-    {
-       int idExposicion = -1;
-       int idObra = -1;
-       boolean obraEncontrada = false;
-       boolean exposicionEncontrada = false;
-       try {
-          System.out.println("Ingrese el identificador de la Exposición de la que va a remover la obra:");
-          idExposicion = sc.nextInt();
-          System.out.println("Ingrese el identificador de la Obra que va sacar de la exposicion:");
-          idObra = sc.nextInt();         
-      } 
-      catch(Exception ex) {
-        System.out.println("Error: " + ex.getMessage());
-      }
-      
-      
-      Exposicion exposicionAUsar = new Exposicion();
-      for(int i = 0; i < listaExposiciones.size(); i++) {
-          Exposicion expo = listaExposiciones.get(i);
-          if (expo.getIdentificador() == idExposicion) {              
-              exposicionEncontrada = true;
-              exposicionAUsar = expo;
-              break;
-          }
-      }
-
-      if (exposicionEncontrada) {
-            for(int i = 0; i < exposicionAUsar.listaObras.size(); i++) {
-                ObraDeArte obra = exposicionAUsar.listaObras.get(i);
-                if (obra.getIdObra() == idObra) {
-                    obraEncontrada = true;
-                    exposicionAUsar.listaObras.remove(i);
-                    System.out.println("Obra se ha retirado de exposición");
-                    break;
-                }
-            }
-            for (int i = 0; i < listaObras.size(); i++) {
-                ObraDeArte obra = listaObras.get(i);
-                if (obra.getIdObra() == idObra) {
-                    Exposicion nuevaExpo = new Exposicion();
-                    obra.setExposicion(nuevaExpo);
-                    break;
-                }
-            }
-      } else if (!exposicionEncontrada) {
-          System.out.println("No se encontró exposición con ese identificador");
-      } else if (!obraEncontrada) {
-          System.out.println("No se encontró obra con ese identificador");
-      }
-      String pausa = sc.nextLine();
-    }
-  
     
     // Administración de visitas
     public void verVisitas()

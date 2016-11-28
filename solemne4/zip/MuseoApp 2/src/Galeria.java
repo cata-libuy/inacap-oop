@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//package museoapp;
+
+// package museoapp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +15,6 @@ public class Galeria {
     public String nombre="";
     public String ubicacion="";
     public String nombreMuseo="";
-    public ArrayList<Exposicion> listaExposiciones = new ArrayList<Exposicion>();
 
     /**
      *
@@ -28,7 +22,7 @@ public class Galeria {
      * @throws IOException
      */
        
-
+    
     public Galeria()
     {
         this.identificador=0;
@@ -48,17 +42,43 @@ public class Galeria {
     public int getIdentificador() {
         return identificador;
     }
-    
-    public String getNombre() {
-        return nombre;
-    }
 
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
     }
     
-    
-    public void leerDatos()
+    public void menu()
+    {
+        int opcion=0;
+        do
+        {
+            try
+        {
+            System.out.println("Ingrese una opcion: ");
+            System.out.println("1.- Crear Galeria.");
+            System.out.println("2.- Modificar Galeria.");
+            System.out.println("3.- Desplegar datos Galeria. ");
+            System.out.println("4.- Eliminar Galeria.");
+            System.out.println("5.- Salir");
+            opcion=Integer.parseInt(br.readLine());
+            
+            switch(opcion)
+            {
+                case 1: crearGaleria(); break;
+                case 2: modificarGaleria(); break;
+                case 3: desplegarDatos(); break;
+                case 4: eliminarGaleria(); break;
+                case 5: System.out.println("Hasta pronto."); break;
+            }
+        }
+        catch(Exception ex)
+        {
+                    System.out.println("Error: "+ex.getMessage());
+        }
+        } while(opcion!=5);
+    }
+     
+    public void crearGaleria()
     {
         try
         {
@@ -78,7 +98,29 @@ public class Galeria {
         }
     }
     
-    public void desplegarDatos()
+    private void modificarGaleria()
+    {
+        String confirmar="";
+        try
+        {
+            System.out.println("Ha seleccionado Modificar Galeria, desea continuar[S/N]?");
+            confirmar=br.readLine();
+            if(confirmar=="S"||confirmar=="s")
+            {
+                
+            }
+            else
+            {
+                menu();
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+    
+    private void desplegarDatos()
     {
         try
         {
@@ -95,37 +137,9 @@ public class Galeria {
         }
     }
     
-    public void editarDatos() throws IOException
+    private void eliminarGaleria()
     {
-        System.out.println("Ingrese Nombre de Galeria: ");
-        this.nombre=br.readLine();
-        System.out.println("Ingrese Ubicacion de Galeria (Ej: Ala Este): ");
-        this.ubicacion=br.readLine();
-        System.out.println("Ingrese Nombre de Museo a la que pertenece Galeria: ");
-        System.out.println("Registro modificado exitosamente.");
-    }
         
-    public void agregarExposicion(Exposicion expo)
-    {
-        listaExposiciones.add(expo);
     }
     
-    public void quitarExposicion(int expoId)
-    {
-        boolean encontrado = false;
-        for(int i = 0; i < listaExposiciones.size(); i++) {
-          Exposicion expo = listaExposiciones.get(i);
-          if (expo.getIdentificador() == expoId) {
-              listaExposiciones.remove(i);
-              encontrado = true;
-              System.out.println("Exposición eliminada");
-          }
-      }
-      if (!encontrado) {
-          System.out.println("No se encontró exposición con ese id");
-      }
-    }
-    
-  }
-    
-
+}

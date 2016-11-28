@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// package museoapp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 /**
  *
@@ -16,11 +11,9 @@ import java.util.ArrayList;
 public class Exposicion {
    public BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
    private int identificador;
-   public String nombre;
    public String fechaInicio;
    public String fechaTermino;
-   public Galeria galeria;
-   public ArrayList<ObraDeArte> listaObras = new ArrayList<ObraDeArte>();
+   public String nombreGaleria;
    
    
    public int getIdentificador() {
@@ -31,25 +24,54 @@ public class Exposicion {
         this.identificador = identificador;
     }
 
-   Exposicion()
+   public void Exposicion()
     {
         this.identificador=0;
-        this.nombre = "";
         this.fechaInicio="";
         this.fechaTermino="";
-        this.galeria = new Galeria();
+        this.nombreGaleria="";
     }    
     
-    Exposicion(int identificador, String nombre, String fechaInicio, String fechaTermino)
+    public void Exposicion(int identificador, String fechaInicio, String fechaTermino, String nombreGaleria)
     {
         this.identificador=identificador;
-        this.nombre = nombre;
         this.fechaInicio=fechaInicio;
         this.fechaTermino=fechaTermino;
-        this.galeria = new Galeria();
+        this.nombreGaleria=nombreGaleria;
     }
     
-    public void leerDatos()
+    public void menu()
+    {
+        int opcion=0;
+        do
+        {
+            try
+        {
+            System.out.println("Ingrese una opcion: ");
+            System.out.println("1.- Crear Exposicion.");
+            System.out.println("2.- Modificar Exposicion.");
+            System.out.println("3.- Desplegar datos Exposicion. ");
+            System.out.println("4.- Eliminar Exposicion.");
+            System.out.println("5.- Salir");
+            opcion=Integer.parseInt(br.readLine());
+            
+            switch(opcion)
+            {
+                case 1: crearExposicion(); break;
+                case 2: modificarExposicion(); break;
+                case 3: desplegarDatos(); break;
+                case 4: eliminarExposicion(); break;
+                case 5: System.out.println("Hasta pronto."); break;
+            }
+        }
+        catch(Exception ex)
+        {
+                    System.out.println("Error: "+ex.getMessage());
+        }
+        } while(opcion!=5);
+    }
+     
+    public void crearExposicion()
     {
         try
         {
@@ -60,8 +82,8 @@ public class Exposicion {
             fechaInicio=br.readLine();
             System.out.println("Ingrese Fecha de Termino de Exposicion(DD-MM-AAAA): ");
             fechaTermino=br.readLine();
-//            System.out.println("Ingrese Nombre de Galeria donde se realiza Exposicion: ");
-//            nombreGaleria=br.readLine();
+            System.out.println("Ingrese Nombre de Galeria donde se realiza Exposicion: ");
+            nombreGaleria=br.readLine();
         }
         catch (Exception ex)
         {
@@ -69,16 +91,21 @@ public class Exposicion {
         }
     }
     
-    public void editarDatos()
+    private void modificarExposicion()
     {
+        String confirmar="";
         try
         {
-            System.out.println("Ingrese nombre de Exposicion: ");
-            this.nombre = br.readLine();
-            System.out.println("Ingrese Fecha de Inicio de Exposicion(DD-MM-AAAA): ");
-            this.fechaInicio=br.readLine();
-            System.out.println("Ingrese Fecha de Termino de Exposicion(DD-MM-AAAA): ");
-            this.fechaTermino=br.readLine();
+            System.out.println("Ha seleccionado Modificar Exposicion, desea continuar[S/N]?");
+            confirmar=br.readLine();
+            if(confirmar=="S"||confirmar=="s")
+            {
+                
+            }
+            else
+            {
+                menu();
+            }
         }
         catch(Exception ex)
         {
@@ -86,8 +113,7 @@ public class Exposicion {
         }
     }
     
-    
-    public void desplegarDatos()
+    private void desplegarDatos()
     {
         try
         {
@@ -95,7 +121,7 @@ public class Exposicion {
             System.out.println("Identificador: "+identificador);
             System.out.println("Fecha de Inicio: "+fechaInicio);
             System.out.println("Fecha de Termino: "+fechaTermino);
-            System.out.println("Galeria en donde se Expone: " + galeria.getNombre() + " id galeria: " + galeria.getIdentificador());
+            System.out.println("Galeria en donde se Expone: "+nombreGaleria);
             System.out.println("------------------------------------------------");
         }
         catch (Exception ex)
@@ -104,30 +130,9 @@ public class Exposicion {
         }
     }
     
-    public void setGaleria(Galeria galeria) 
+    private void eliminarExposicion()
     {
-        this.galeria = galeria;
-    }
-    
-    public void agregarObraDeArte(ObraDeArte obra)
-    {
-        listaObras.add(obra);
-    }
-    
-    public void quitarObraDeArte(int obraId)
-    {
-        boolean encontrado = false;
-        for(int i = 0; i < listaObras.size(); i++) {
-          ObraDeArte obra = listaObras.get(i);
-          if (obra.getIdObra() == obraId) {
-              listaObras.remove(i);
-              encontrado = true;
-              System.out.println("Obra de Arte eliminada");
-          }
-      }
-      if (!encontrado) {
-          System.out.println("No se encontró obra con ese id");
-      }
+        
     }
             
 }

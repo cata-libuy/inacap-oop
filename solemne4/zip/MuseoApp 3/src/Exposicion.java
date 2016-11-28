@@ -20,7 +20,6 @@ public class Exposicion {
    public String fechaInicio;
    public String fechaTermino;
    public Galeria galeria;
-   public ArrayList<ObraDeArte> listaObras = new ArrayList<ObraDeArte>();
    
    
    public int getIdentificador() {
@@ -107,27 +106,6 @@ public class Exposicion {
     public void setGaleria(Galeria galeria) 
     {
         this.galeria = galeria;
-    }
-    
-    public void agregarObraDeArte(ObraDeArte obra)
-    {
-        listaObras.add(obra);
-    }
-    
-    public void quitarObraDeArte(int obraId)
-    {
-        boolean encontrado = false;
-        for(int i = 0; i < listaObras.size(); i++) {
-          ObraDeArte obra = listaObras.get(i);
-          if (obra.getIdObra() == obraId) {
-              listaObras.remove(i);
-              encontrado = true;
-              System.out.println("Obra de Arte eliminada");
-          }
-      }
-      if (!encontrado) {
-          System.out.println("No se encontró obra con ese id");
-      }
     }
             
 }
