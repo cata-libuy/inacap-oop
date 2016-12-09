@@ -39,14 +39,14 @@ public class PruebaMySql {
             
             Statement s = con.createStatement();
             // Crear una tabla
-            s.executeUpdate("create table fruta("
-                    + "nombre varchar(100)"                    
-                    + ");");
-            System.out.println("Tabla creada");
+           // s.executeUpdate("create table fruta("
+           //         + "nombre varchar(100)"                    
+           //         + ");");
+           // System.out.println("Tabla creada");
             // Insertar valores
-            s.executeUpdate("insert into fruta values('manzana')");
-            s.executeUpdate("insert into fruta values('pera')");
-            System.out.println("valores insertados");
+           // s.executeUpdate("insert into fruta values('manzana')");
+           // s.executeUpdate("insert into fruta values('pera')");
+           // System.out.println("valores insertados");
             
             // Leer valores
             ResultSet results = null;
