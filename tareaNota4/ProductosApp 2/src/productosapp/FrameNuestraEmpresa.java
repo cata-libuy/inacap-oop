@@ -11,15 +11,14 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
  *
  * @author cata.orellana
  */
-public class NuestraEmpresa extends javax.swing.JFrame {
+public class FrameNuestraEmpresa extends javax.swing.JFrame {
 
     /**
      * Creates new form NuestraEmpresa
      */
-    public NuestraEmpresa() {
+    public FrameNuestraEmpresa() {
         initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);        
     }
 
     /**
@@ -115,20 +114,21 @@ public class NuestraEmpresa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameNuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameNuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameNuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameNuestraEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NuestraEmpresa().setVisible(true);
+                new FrameNuestraEmpresa().setVisible(true);
             }
         });
     }
