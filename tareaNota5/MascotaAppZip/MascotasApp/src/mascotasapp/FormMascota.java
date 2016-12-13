@@ -1,0 +1,396 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mascotasapp;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Leica
+ */
+public class FormMascota extends javax.swing.JFrame {
+    
+    Connection conn;
+    Statement s;
+    ResultSet r;
+    PreparedStatement pstm;
+    String mascotaData[];
+
+    /**
+     * Creates new form FormMascota
+     */
+    public FormMascota() {
+        initComponents();
+        limpiarMensajes();
+    }
+    
+    public boolean connect() 
+    {
+        System.out.println("iniciando conexion");
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            String protocolo = "jdbc:oracle:";
+            String url="thin:@localhost:1521:xe";
+            String user = "dbd37";
+            String pass = "123456";
+            System.out.println("driver registrado");
+            try {
+                conn = DriverManager.getConnection(protocolo+url, user, pass);
+                System.out.println("Conexion ok");
+                return true;
+            } catch (SQLException ex) {
+                System.out.println("error al conectar " + ex.getMessage());
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    public void disconnect()
+    {
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public boolean getMascotaByRut(String rut)
+    {
+        mascotaData = new String[3];
+        System.out.println("get Mascota"+rut);
+        try {
+            if (connect()) {
+                System.out.println("setting query");
+                s = conn.createStatement();
+                String query = "select * from mascota where rut='" + rut +"'";
+                System.out.println(query);
+                r = s.executeQuery(query);
+                int founded = 0;
+                while(r.next()) {
+                    founded++;
+                    mascotaData[0] = r.getString("rut");
+                    mascotaData[1] = r.getString("nombre");
+                    mascotaData[2] = r.getString("especie");
+                    System.out.println("ok");
+                    return true;
+                }
+                if (founded == 0)
+                    return false;
+                r.close();
+                disconnect();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        };
+        return false;
+    }
+    
+    
+    public void cargarMascota()
+    {
+        inputRut.setText(mascotaData[0]);
+        inputNombre.setText(mascotaData[1]);
+        inputEspecie.setText(mascotaData[2]);
+    }
+    
+    public void limpiarMensajes()
+    {
+        msgFeedback.setText("");
+        msgErrorRut.setVisible(false);
+        msgErrorNombre.setVisible(false);
+        msgErrorEspecie.setVisible(false);
+    }
+    
+    public void limpiarFormulario()
+    {
+        inputRut.setText("");
+        inputNombre.setText("");
+        inputEspecie.setText("");
+    }
+    
+    public boolean guardarMascota()
+    {
+        System.out.println("guardar mascota");
+        if (validarFormulario()) {
+            limpiarMensajes();
+            if (connect()) {
+                String query = "insert into mascota(rut, nombre, especie) values('"+inputRut.getText()+"', '"+inputNombre.getText()+"', '"+inputEspecie.getText()+"')";
+                System.out.println(query);
+                try {
+                    pstm = conn.prepareStatement(query);
+                    pstm.executeUpdate();
+                    System.out.println("creado");
+                    msgFeedback.setText("Mascota creada");
+                    return true;
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean validarFormulario()
+    {
+        limpiarMensajes();
+        boolean valido = true;
+        if (inputRut.getText().length() == 0) {
+            valido = false;
+            msgErrorRut.setVisible(true);
+        }
+        if (inputNombre.getText().length() == 0) {
+            valido = false;
+            msgErrorNombre.setVisible(true);
+        }        
+        if (inputEspecie.getText().length() == 0) {
+            valido = false;
+            msgErrorEspecie.setVisible(true);
+        }        return valido;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        inputRut = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        inputNombre = new javax.swing.JTextField();
+        inputEspecie = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
+        msgFeedback = new javax.swing.JLabel();
+        msgErrorRut = new javax.swing.JLabel();
+        msgErrorNombre = new javax.swing.JLabel();
+        msgErrorEspecie = new javax.swing.JLabel();
+        btnLimpiar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("Datos Mascotas");
+
+        inputRut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputRutActionPerformed(evt);
+            }
+        });
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        inputEspecie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputEspecieActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Rut:");
+
+        jLabel3.setText("Nombre:");
+
+        jLabel4.setText("Especie:");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        msgFeedback.setForeground(new java.awt.Color(0, 51, 255));
+
+        msgErrorRut.setForeground(new java.awt.Color(255, 0, 51));
+        msgErrorRut.setText("ingrese dato");
+
+        msgErrorNombre.setForeground(new java.awt.Color(255, 0, 51));
+        msgErrorNombre.setText("ingrese dato");
+
+        msgErrorEspecie.setForeground(new java.awt.Color(255, 0, 51));
+        msgErrorEspecie.setText("ingrese dato");
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(msgErrorNombre))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(inputRut, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(msgErrorRut))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(inputEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(msgErrorEspecie))))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(msgFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar)))))
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jLabel1)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(inputRut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(msgErrorRut))
+                    .addComponent(jLabel2))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(msgErrorNombre))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(msgErrorEspecie))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnLimpiar))
+                .addGap(33, 33, 33)
+                .addComponent(msgFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void inputRutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputRutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputRutActionPerformed
+
+    private void inputEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputEspecieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputEspecieActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        limpiarMensajes();
+        inputNombre.setText("");
+        inputEspecie.setText("");
+        if (inputRut.getText().length() > 0) {
+            if (getMascotaByRut(inputRut.getText())) {
+                cargarMascota();
+                msgFeedback.setText("Datos cargados correctamente");
+            } else {
+                msgFeedback.setText("Datos no encontrados");
+            }
+        } else {
+            msgErrorRut.setVisible(true);
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        guardarMascota();
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        limpiarMensajes();
+        limpiarFormulario();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FormMascota.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormMascota().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JTextField inputEspecie;
+    private javax.swing.JTextField inputNombre;
+    private javax.swing.JTextField inputRut;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel msgErrorEspecie;
+    private javax.swing.JLabel msgErrorNombre;
+    private javax.swing.JLabel msgErrorRut;
+    private javax.swing.JLabel msgFeedback;
+    // End of variables declaration//GEN-END:variables
+}
